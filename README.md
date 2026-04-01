@@ -1,178 +1,226 @@
 # CodeBlaze CLI
 
 <p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=FFD700&height=300&section=header&text=CodeBlaze&fontSize=90&animation=fadeIn&fontAlignY=35" width="100%" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/version-0.1.0-yellow" alt="Version">
   <img src="https://img.shields.io/badge/node-18%2B-green" alt="Node Version">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="License">
+  <img src="https://img.shields.io/github/last-commit/kushalchalla981-tech/codeblazecli" alt="Last Commit">
   <img src="https://img.shields.io/github/issues/kushalchalla981-tech/codeblazecli" alt="Issues">
-  <img src="https://img.shields.io/github/forks/kushalchalla981-tech/codeblazecli" alt="Forks">
-  <img src="https://img.shields.io/github/stars/kushalchalla981-tech/codeblazecli" alt="Stars">
 </p>
-
----
 
 <p align="center">
-  <b>CodeBlaze</b> — A free, open-source CLI wrapper that enables multiple free-tier AI providers with your Claude Code installation. Write code, debug, and build with zero API costs.
+  🔥 A lightweight CLI wrapper that enables free AI providers with your Claude Code installation. Write code, debug, and build with zero API costs.
 </p>
 
 ---
 
-## About
-
-CodeBlaze is a lightweight CLI wrapper that transforms your Claude Code installation into a **free multi-provider AI assistant**. By leveraging free-tier API quotas from leading AI providers, CodeBlaze enables developers to use powerful AI coding tools without worrying about API costs.
-
-Built with developers in mind, CodeBlaze provides seamless integration with your existing Claude Code workflow while unlocking access to 15+ free AI providers including Groq, NVIDIA NIM, OpenRouter, Google AI, and DeepSeek.
-
----
-
-## Why CodeBlaze?
-
-| Problem | Solution |
-|---------|-----------|
-| Anthropic API costs money | Use free-tier providers (Groq, NVIDIA, etc.) |
-| Limited rate limits on single provider | Combine multiple providers with presets |
-| Complex configuration | One-command presets: `codeblaze on premium` |
-| Tool support limitations | Automatic fallback to Anthropic when needed |
-| Locked into one provider | Switch between 15+ providers instantly |
-
----
-
-## Supported Providers
-
-| Provider | RPM | Best For |
-|----------|-----|----------|
-| **Groq** | 60 | Fastest responses, coding |
-| **NVIDIA NIM** | 40 | High quality, DeepSeek R1 |
-| **OpenRouter** | 20 | 50+ model variety |
-| **Google AI** | 15 | 1M context, Gemini models |
-| **DeepSeek** | 50+ | Reasoning, coding |
-| **Cerebras** | 30 | Fast inference |
-| **Cohere** | 20 | RAG, document Q&A |
-| **Mistral** | 2 | Code generation |
-| **xAI (Grok)** | 30 | Creative tasks |
-| **AI21 Labs** | 200 | High throughput |
-| + more | - | - |
-
----
-
-## Features
+## ✨ Features
 
 - 🚀 **Up to 290 RPM** with premium preset combinations
-- 💰 **100% Free** - Zero API costs with free-tier providers
+- 💰 **100% Free** - Zero API costs with free-tier providers  
 - 🔄 **15+ AI Providers** - Groq, NVIDIA, Google, DeepSeek, and more
-- 🎯 **6 Smart Presets** - Pre-configured provider combinations for different use cases
-- 🛠️ **Tool Support** - Automatic fallback to Anthropic for complex tool usage
-- 🎨 **Seamless Experience** - Maintains the Claude Code CLI experience
-- 💡 **Reasoning Support** - Compatible with reasoning models (DeepSeek R1, Grok, etc.)
+- 🎯 **6 Smart Presets** - Pre-configured provider combinations
+- 🛠️ **Tool Support** - Automatic fallback to Anthropic for complex tasks
+- 🎨 **Seamless Experience** - Maintains the Claude Code CLI interface
+- 💡 **Reasoning Support** - Compatible with DeepSeek R1, Grok, and more
 - 🔒 **Privacy-First** - Your API keys stay local, no telemetry
 
 ---
 
-## Installation
+## 🛠️ Tech Stack
 
-### Option 1: Install from GitHub (Recommended)
-
-```bash
-# Clone the repository
-git clone https://github.com/kushalchalla981-tech/codeblazecli.git
-
-# Navigate to directory
-cd codeblazecli
-
-# Install dependencies
-npm install
-
-# Link globally (optional)
-npm link
-
-# Now you can run
-codeblaze
-```
-
-### Option 2: Install from npm (Coming Soon)
-
-```bash
-# Coming soon!
-npm install -g codeblaze-cli
-codeblaze --help
-```
+- **Node.js** (18+) - Runtime environment
+- **JavaScript ES6+** - CLI logic
+- **npm** - Package management
+- **Claude Code** - Base CLI (installed separately)
 
 ---
 
-## Quick Start
+## 🚀 Getting Started
 
-### Step 1: Get a Free API Key
+### Prerequisites
 
-Choose a provider and get a free API key:
+- Node.js 18 or higher installed
+- Claude Code installed (`npm install -g @anthropic-ai/claude-code`)
+- A free API key from one of the supported providers
 
-| Provider | URL | RPM |
-|----------|-----|-----|
-| Groq | https://console.groq.com/ | 60 |
-| NVIDIA | https://build.nvidia.com/ | 40 |
-| OpenRouter | https://openrouter.ai/ | 20 |
-| Google | https://aistudio.google.com/app/apikey | 15 |
-| DeepSeek | https://platform.deepseek.com/ | 50+ |
+### Installation
 
-### Step 2: Set API Key
+#### Windows
+
+```powershell
+# 1. Clone the repository
+git clone https://github.com/kushalchalla981-tech/codeblazecli.git
+cd codeblazecli
+
+# 2. Install dependencies
+npm install
+
+# 3. Link globally (optional)
+npm link
+
+# 4. Run CodeBlaze
+codeblaze --help
+```
+
+**Alternative (without git):**
+1. Download the repository as ZIP
+2. Extract to a folder
+3. Open PowerShell in that folder
+4. Run `npm install` then `npm link`
+
+#### Linux
 
 ```bash
-# Add to your shell profile (~/.bashrc or ~/.zshrc)
+# 1. Clone the repository
+git clone https://github.com/kushalchalla981-tech/codeblazecli.git
+cd codeblazecli
 
-# Example for Groq
-export GROQ_API_KEY="your-groq-api-key"
+# 2. Install dependencies
+npm install
 
-# Or for multiple providers
+# 3. Link globally
+sudo npm link
+
+# 4. Make executable (optional)
+chmod +x bin/codeblaze
+
+# 5. Run CodeBlaze
+codeblaze --help
+```
+
+**Installation paths:**
+- Global: `/usr/local/lib/node_modules/`
+- User: `~/.npm-global/lib/node_modules/`
+
+#### macOS
+
+```bash
+# 1. Clone the repository  
+git clone https://github.com/kushalchalla981-tech/codeblazecli.git
+cd codeblazecli
+
+# 2. Install dependencies
+npm install
+
+# 3. Link globally
+sudo npm link
+
+# 4. Run CodeBlaze
+codeblaze --help
+```
+
+**Note:** On macOS, you may need to add npm's global bin to your PATH:
+```bash
+export PATH="$PATH:$(npm root -g)/../bin"
+```
+Add this to your `~/.zshrc` or `~/.bash_profile`.
+
+---
+
+## 📋 Quick Usage Guide
+
+### 1. Get a Free API Key
+
+| Provider | URL | RPM | Best For |
+|----------|-----|-----|----------|
+| **Groq** | [console.groq.com](https://console.groq.com/) | 60 | Fastest responses |
+| **NVIDIA** | [build.nvidia.com](https://build.nvidia.com/) | 40 | High quality |
+| **OpenRouter** | [openrouter.ai](https://openrouter.ai/) | 20 | Model variety |
+| **Google** | [aistudio.google.com](https://aistudio.google.com/app/apikey) | 15 | 1M context |
+| **DeepSeek** | [platform.deepseek.com](https://platform.deepseek.com/) | 50+ | Reasoning |
+
+### 2. Set Your API Key
+
+#### Windows (PowerShell)
+```powershell
+# Temporary (current session only)
+$env:GROQ_API_KEY = "your-groq-key"
+
+# Permanent
+# Add to your PowerShell profile:
+notepad $PROFILE
+# Add: $env:GROQ_API_KEY = "your-key"
+```
+
+#### Windows (Command Prompt)
+```cmd
+set GROQ_API_KEY=your-groq-key
+```
+
+#### Linux/macOS (Bash/Zsh)
+```bash
+# Add to ~/.bashrc or ~/.zshrc
 export GROQ_API_KEY="your-groq-key"
 export NVIDIA_API_KEY="your-nvidia-key"
-export OPENROUTER_API_KEY="your-openrouter-key"
 
-# Reload your profile
+# Reload profile
 source ~/.bashrc  # or source ~/.zshrc
 ```
 
-### Step 3: Run CodeBlaze
+### 3. Run CodeBlaze
 
 ```bash
-# Basic usage - runs Claude Code with free providers
-codeblaze
+# Show help
+codeblaze --help
 
 # Enable with specific provider
 codeblaze on groq
 codeblaze on nvidia
+codeblaze on openrouter
 
 # Enable with preset (recommended!)
-codeblaze on premium    # 290 RPM!
+codeblaze on premium    # 290 RPM - MAXIMUM SPEED
 codeblaze on speed      # 90 RPM
-codeblaze on balanced  # 65 RPM
-codeblaze on coding   # 62 RPM
+codeblaze on balanced   # 65 RPM
+codeblaze on coding    # 62 RPM
 
 # Check status
 codeblaze status
 
-# Setup wizard
-codeblaze setup
+# Run Claude Code with CodeBlaze enabled
+codeblaze
 ```
 
 ---
 
-## Commands
+## 🎮 Controls
 
 | Command | Description |
 |---------|-------------|
-| `codeblaze` | Start CLI (default) |
+| `codeblaze` | Start CLI with CodeBlaze mode |
 | `codeblaze on` | Enable CodeBlaze mode |
 | `codeblaze on <provider>` | Enable with specific provider |
 | `codeblaze on <preset>` | Enable with preset |
 | `codeblaze off` | Disable CodeBlaze mode |
+| `codeblaze status` | Show current configuration |
 | `codeblaze setup` | Run setup wizard |
-| `codeblaze status` | Show configuration |
-| `codeblaze --help` | Show help |
+| `codeblaze --help` | Show help message |
 
 ---
 
-## Presets
+## 📁 Project Structure
 
-| Preset | Providers | RPM | Best For |
+```
+codeblazecli/
+├── bin/
+│   └── codeblaze          # CLI entry point
+├── package.json           # Package configuration
+├── README.md              # This file
+├── LICENSE                # MIT License
+└── src/                   # (Future: additional modules)
+    └── index.js
+```
+
+---
+
+## 🎯 Presets Guide
+
+| Preset | Providers | RPM | Use Case |
 |--------|-----------|-----|----------|
 | `premium` | Groq + Cerebras + AI21 | **290** | Maximum throughput |
 | `speed` | Groq + Cerebras | 90 | Fast responses |
@@ -183,109 +231,69 @@ codeblaze setup
 
 ---
 
-## Environment Variables
+## 🔧 Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `CODEBLAZE_ENABLED` | Enable/disable mode | `true` |
-| `CODEBLAZE_PROVIDER` | Set provider | `groq` |
-| `CODEBLAZE_PRESET` | Set preset | `premium` |
-| `GROQ_API_KEY` | Groq API key | `gsk_...` |
-| `NVIDIA_API_KEY` | NVIDIA API key | `nvapi-...` |
-| `OPENROUTER_API_KEY` | OpenRouter key | `sk-or-...` |
-| `GOOGLE_API_KEY` | Google AI key | `AIza...` |
-| `DEEPSEEK_API_KEY` | DeepSeek key | `sk-...` |
-
----
-
-## How It Works
-
-```
-┌─────────────────────────────────────────────────────┐
-│                   codeblaze CLI                     │
-│                                                     │
-│  1. Load config (env vars + user settings)        │
-│  2. Find Claude Code installation                  │
-│  3. Set CODEBLAZE_ENABLED=true                     │
-│  4. Launch Claude Code with your config            │
-│  5. Claude Code uses free providers                │
-└─────────────────────────────────────────────────────┘
-```
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CODEBLAZE_ENABLED` | No | Set to "true" to enable |
+| `CODEBLAZE_PROVIDER` | No | Provider name (groq, nvidia, etc.) |
+| `CODEBLAZE_PRESET` | No | Preset name (premium, speed, etc.) |
+| `GROQ_API_KEY` | Yes* | Groq API key (*if using Groq) |
+| `NVIDIA_API_KEY` | Yes* | NVIDIA API key (*if using NVIDIA) |
+| `OPENROUTER_API_KEY` | Yes* | OpenRouter API key (*if using OpenRouter) |
+| `GOOGLE_API_KEY` | Yes* | Google AI API key (*if using Google) |
+| `DEEPSEEK_API_KEY` | Yes* | DeepSeek API key (*if using DeepSeek) |
 
 ---
 
-## Inside CodeBlaze
-
-CodeBlaze provides these components:
-
-```
-codeblaze-cli/
-├── bin/codeblaze          # CLI entry point
-├── package.json           # Package configuration
-├── README.md              # This file
-└── src/                   # (Future: additional scripts)
-```
-
----
-
-## Requirements
-
-- **Node.js** 18+
-- **Claude Code** installed (`npm install -g @anthropic-ai/claude-code`)
-- At least one provider API key
-
----
-
-## Troubleshooting
+## ⚠️ Troubleshooting
 
 ### "claude: command not found"
-```bash
-# Install Claude Code first
-npm install -g @anthropic-ai/claude-code
 
-# Or check if it's in your PATH
-which claude
+**Windows:**
+```powershell
+npm install -g @anthropic-ai/claude-code
+```
+
+**Linux/macOS:**
+```bash
+sudo npm install -g @anthropic-ai/claude-code
 ```
 
 ### "No API key configured"
-```bash
-# Check your API keys are set
-echo $GROQ_API_KEY
 
-# If not set, add to your profile
-export GROQ_API_KEY="your-key"
-source ~/.bashrc
+Check your API key is set:
+```bash
+echo $GROQ_API_KEY  # Linux/macOS
+echo %GROQ_API_KEY%  # Windows
 ```
 
 ### Rate limit errors
+
+Use a preset with more providers:
 ```bash
-# Use a preset with more providers
 codeblaze on premium  # 290 RPM
-codeblaze on speed   # 90 RPM
+```
+
+### PATH issues (Linux/macOS)
+
+Add npm global bin to PATH:
+```bash
+export PATH="$PATH:$(npm root -g)/../bin"
 ```
 
 ---
 
-## Contributing
+## 📜 License
 
-Contributions welcome! Please read the contributing guidelines before submitting PRs.
-
----
-
-## License
-
-MIT License - See [LICENSE](LICENSE) file.
-
----
-
-## Support
-
-- 📖 [Documentation](docs/)
-- 🐛 [Report Issues](https://github.com/kushalchalla981-tech/codeblazecli/issues)
-- 💬 [Discussions](https://github.com/kushalchalla981-tech/codeblazecli/discussions)
+MIT License - Feel free to use this for learning and personal projects!
 
 ---
 
 <p align="center">
   Made with ❤️ by <a href="https://github.com/kushalchalla981-tech">Kushal Challa</a>
+</p>
+
+<p align="center">
+  🔥 CodeBlaze - Free Multi-Provider AI CLI
 </p>
