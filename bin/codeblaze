@@ -1,0 +1,299 @@
+#!/usr/bin/env node
+
+/**
+ * CodeBlaze CLI
+ * A wrapper that enables free AI providers with Claude Code
+ * 
+ * Usage:
+ *   codeblaze                    - Run Claude Code with CodeBlaze mode
+ *   codeblaze on                 - Enable CodeBlaze mode
+ *   codeblaze off               - Disable CodeBlaze mode  
+ *   codeblaze setup             - Run setup wizard
+ *   codeblaze --help            - Show help
+ */
+
+import { spawn } from 'child_process';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { homedir } from 'os';
+import { createInterface } from 'readline';
+
+const CODEBLAZE_VERSION = '0.1.0';
+
+// Color codes for terminal output
+const colors = {
+  reset: '\x1b[0m',
+  bright: '\x1b[1m',
+  dim: '\x1b[2m',
+  yellow: '\x1b[33m',
+  cyan: '\x1b[36m',
+  green: '\x1b[32m',
+  red: '\x1b[31m',
+};
+
+function log(message, color = 'reset') {
+  console.log(`${colors[color]}${message}${colors.reset}`);
+}
+
+function showBanner() {
+  console.log('');
+  log('═══════════════════════════════════════════════════════════════', 'cyan');
+  log('  ███████╗ ██████╗ ██╗      █████╗ ██████╗ ', 'yellow');
+  log('  ██╔════╝██╔═══██╗██║     ██╔══██╗██╔══██╗', 'yellow');
+  log('  █████╗  ██║   ██║██║     ███████║██████╔╝', 'yellow');
+  log('  ██╔══╝  ██║   ██║██║     ██╔══██║██╔══██╗', 'yellow');
+  log('  ███████╗╚██████╔╝███████╗██║  ██║██║  ██║', 'yellow');
+  log('  ╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝', 'yellow');
+  log('', 'reset');
+  log(`  CodeBlaze v${CODEBLAZE_VERSION} - Free Multi-Provider AI CLI`, 'cyan');
+  log('═══════════════════════════════════════════════════════════════', 'cyan');
+  console.log('');
+}
+
+function showHelp() {
+  showBanner();
+  log('Usage:', 'bright');
+  console.log('  codeblaze [command] [options]');
+  console.log('');
+  log('Commands:', 'bright');
+  console.log('  codeblaze           Start CodeBlaze CLI (default)');
+  console.log('  codeblaze on        Enable CodeBlaze mode');
+  console.log('  codeblaze off       Disable CodeBlaze mode');
+  console.log('  codeblaze setup     Run provider setup wizard');
+  console.log('  codeblaze status    Show current configuration');
+  console.log('  codeblaze --help    Show this help message');
+  console.log('');
+  log('Environment Variables:', 'bright');
+  console.log('  CODEBLAZE_ENABLED=true      Enable CodeBlaze mode');
+  console.log('  CODEBLAZE_PROVIDER=groq      Set default provider');
+  console.log('  CODEBLAZE_PRESET=premium     Set default preset');
+  console.log('  GROQ_API_KEY=...             Set provider API keys');
+  console.log('  NVIDIA_API_KEY=...');
+  console.log('  OPENROUTER_API_KEY=...');
+  console.log('  (and more...)');
+  console.log('');
+  log('Examples:', 'bright');
+  console.log('  codeblaze on groq            Enable with Groq provider');
+  console.log('  codeblaze on premium         Enable with premium preset');
+  console.log('  CODEBLAZE_ENABLED=true codeblaze');
+}
+
+function showStatus() {
+  showBanner();
+  log('CodeBlaze Status:', 'bright');
+  console.log('');
+  
+  const enabled = process.env.CODEBLAZE_ENABLED === 'true';
+  log(`  Status: ${enabled ? 'ENABLED' : 'DISABLED'}`, enabled ? 'green' : 'red');
+  console.log('');
+  
+  if (enabled) {
+    log('  Provider/Preset:', 'cyan');
+    console.log(`    ${process.env.CODEBLAZE_PROVIDER || process.env.CODEBLAZE_PRESET || 'default'}`);
+    console.log('');
+  }
+  
+  log('Configured Providers:', 'cyan');
+  const providers = ['GROQ_API_KEY', 'NVIDIA_API_KEY', 'OPENROUTER_API_KEY', 'GOOGLE_API_KEY', 'DEEPSEEK_API_KEY'];
+  for (const key of providers) {
+    const hasKey = !!process.env[key];
+    log(`  ${key.replace('_API_KEY', '')}: ${hasKey ? '✓ configured' : '✗ not set'}`, hasKey ? 'green' : 'dim');
+  }
+  console.log('');
+  log('Run "codeblaze setup" to configure providers', 'dim');
+}
+
+async function setupProviders() {
+  showBanner();
+  log('CodeBlaze Provider Setup', 'bright');
+  console.log('');
+  log('This wizard will help you configure free AI providers.', 'dim');
+  console.log('');
+  
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  
+  const question = (prompt) => new Promise((resolve) => rl.question(prompt, resolve));
+  
+  log('Available Providers:', 'cyan');
+  console.log('  1. Groq (60 RPM) - Recommended, fastest free tier');
+  console.log('  2. NVIDIA NIM (40 RPM) - Default, high quality');
+  console.log('  3. OpenRouter (20 RPM) - Access to many models');
+  console.log('  4. Google AI (15 RPM) - Gemini models, 1M context');
+  console.log('  5. DeepSeek (varies) - Great for reasoning');
+  console.log('');
+  
+  log('To configure API keys, add them to your shell profile:', 'yellow');
+  console.log('');
+  console.log('  # Add to ~/.bashrc or ~/.zshrc');
+  console.log('  export GROQ_API_KEY="your-groq-key"');
+  console.log('  export NVIDIA_API_KEY="your-nvidia-key"');
+  console.log('');
+  
+  log('Get free API keys:', 'cyan');
+  console.log('  Groq:      https://console.groq.com/');
+  console.log('  NVIDIA:    https://build.nvidia.com/');
+  console.log('  OpenRouter: https://openrouter.ai/');
+  console.log('  Google:    https://aistudio.google.com/app/apikey');
+  console.log('  DeepSeek:  https://platform.deepseek.com/');
+  console.log('');
+  
+  const usePreset = await question('Would you like to enable CodeBlaze with a preset? (y/n): ');
+  
+  if (usePreset.toLowerCase() === 'y') {
+    log('\nAvailable Presets:', 'cyan');
+    console.log('  premium   - Groq + Cerebras + AI21 (290 RPM) - MAXIMUM SPEED');
+    console.log('  speed     - Groq + Cerebras (90 RPM)');
+    console.log('  balanced  - Google + Groq + OpenRouter (65 RPM)');
+    console.log('  coding    - Groq + Mistral Codestral (62 RPM)');
+    console.log('');
+    
+    const preset = await question('Enter preset name (premium/speed/balanced/coding): ');
+    
+    if (['premium', 'speed', 'balanced', 'coding'].includes(preset.toLowerCase())) {
+      process.env.CODEBLAZE_ENABLED = 'true';
+      process.env.CODEBLAZE_PRESET = preset.toLowerCase();
+      log(`\n✓ CodeBlaze enabled with ${preset} preset!`, 'green');
+      log('  Now run "codeblaze" to start.', 'dim');
+    } else {
+      log('\nInvalid preset. Run "codeblaze setup" again.', 'red');
+    }
+  }
+  
+  rl.close();
+}
+
+function enableCodeBlaze(args) {
+  const target = args[0] || '';
+  
+  const presets = ['premium', 'speed', 'balanced', 'coding', 'research', 'rag'];
+  const providers = ['groq', 'nvidia', 'google', 'openrouter', 'cerebras', 'cohere', 'mistral', 'deepseek', 'xai', 'ai21', 'fireworks'];
+  
+  if (presets.includes(target.toLowerCase())) {
+    process.env.CODEBLAZE_ENABLED = 'true';
+    process.env.CODEBLAZE_PRESET = target.toLowerCase();
+    delete process.env.CODEBLAZE_PROVIDER;
+    log(`✓ Enabled CodeBlaze with ${target} preset`, 'green');
+  } else if (providers.includes(target.toLowerCase())) {
+    process.env.CODEBLAZE_ENABLED = 'true';
+    process.env.CODEBLAZE_PROVIDER = target.toLowerCase();
+    delete process.env.CODEBLAZE_PRESET;
+    log(`✓ Enabled CodeBlaze with ${target} provider`, 'green');
+  } else if (target === '') {
+    process.env.CODEBLAZE_ENABLED = 'true';
+    log('✓ Enabled CodeBlaze mode', 'green');
+    log('  Use /provider set <provider> in CLI to select provider', 'dim');
+  } else {
+    log(`Unknown provider/preset: ${target}`, 'red');
+    log('Available presets: premium, speed, balanced, coding, research, rag', 'dim');
+    log('Available providers: groq, nvidia, google, openrouter, etc.', 'dim');
+    process.exit(1);
+  }
+}
+
+function disableCodeBlaze() {
+  process.env.CODEBLAZE_ENABLED = 'false';
+  log('✓ Disabled CodeBlaze mode', 'green');
+  log('  Using default Anthropic API', 'dim');
+}
+
+function findClaudeCode() {
+  // Common installation paths
+  const paths = [
+    join(process.cwd(), 'node_modules', '@anthropic-ai', 'claude-code', 'src', 'entrypoints', 'cli.tsx'),
+    join(homedir(), '.npm-global', 'lib', 'node_modules', '@anthropic-ai', 'claude-code', 'src', 'entrypoints', 'cli.tsx'),
+    join(homedir(), '.nvm', 'versions', 'node', '*', 'lib', 'node_modules', '@anthropic-ai', 'claude-code', 'src', 'entrypoints', 'cli.tsx'),
+    '/usr/local/lib/node_modules/@anthropic-ai/claude-code/src/entrypoints/cli.tsx',
+  ];
+  
+  // Check if already in PATH as 'claude'
+  try {
+    const result = spawn('claude', ['--version'], { stdio: 'pipe' });
+    return 'claude';
+  } catch {
+    // Not in PATH
+  }
+  
+  // Check for local installation
+  const localPath = join(process.cwd(), 'node_modules', '.bin', 'claude');
+  if (existsSync(localPath)) {
+    return localPath;
+  }
+  
+  return 'claude'; // Hope it's in PATH
+}
+
+function runClaudeCode(args) {
+  showBanner();
+  log('Starting Claude Code with CodeBlaze...', 'cyan');
+  console.log('');
+  
+  // Show provider info
+  if (process.env.CODEBLAZE_ENABLED === 'true') {
+    const provider = process.env.CODEBLAZE_PROVIDER || process.env.CODEBLAZE_PRESET || 'default';
+    log(`  Provider: ${provider}`, 'yellow');
+    log(`  Mode: ${process.env.CODEBLAZE_PRESET ? 'Preset (' + process.env.CODEBLAZE_PRESET + ')' : 'Single Provider'}`, 'dim');
+    console.log('');
+  }
+  
+  // Find and run Claude Code
+  const claudePath = findClaudeCode();
+  
+  const child = spawn(claudePath, args, {
+    stdio: 'inherit',
+    env: { ...process.env },
+    shell: true
+  });
+  
+  child.on('exit', (code) => {
+    process.exit(code || 0);
+  });
+  
+  child.on('error', (err) => {
+    log(`\nError running Claude Code: ${err.message}`, 'red');
+    console.log('');
+    log('Make sure Claude Code is installed:', 'yellow');
+    console.log('  npm install -g @anthropic-ai/claude-code');
+    console.log('  or');
+    console.log('  https://docs.anthropic.com/en/docs/claude-code/');
+    process.exit(1);
+  });
+}
+
+// Main entry point
+const args = process.argv.slice(2);
+const command = args[0] || '';
+
+switch (command) {
+  case '--help':
+  case '-h':
+  case 'help':
+    showHelp();
+    break;
+    
+  case 'on':
+    enableCodeBlaze(args.slice(1));
+    break;
+    
+  case 'off':
+    disableCodeBlaze();
+    break;
+    
+  case 'setup':
+    setupProviders();
+    break;
+    
+  case 'status':
+    showStatus();
+    break;
+    
+  case 'version':
+  case '-v':
+    log(`CodeBlaze v${CODEBLAZE_VERSION}`, 'cyan');
+    break;
+    
+  default:
+    runClaudeCode(args);
+}

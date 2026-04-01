@@ -1,0 +1,49 @@
+{
+  "name": "codeblaze-cli",
+  "version": "0.1.0",
+  "description": "CodeBlaze - Free Multi-Provider AI CLI. A wrapper that enables free AI providers (Groq, NVIDIA, etc.) with Claude Code experience.",
+  "main": "src/index.js",
+  "bin": {
+    "codeblaze": "./bin/codeblaze"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Tests not implemented yet\" && exit 0"
+  },
+  "keywords": [
+    "ai",
+    "cli",
+    "llm",
+    "openai",
+    "groq",
+    "nvidia",
+    "anthropic",
+    "claude",
+    "codeblaze"
+  ],
+  "author": "Kushal Challa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kushalchalla981-tech/codeblazecli.git"
+  },
+  "homepage": "https://github.com/kushalchalla981-tech/codeblazecli#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0"
+  },
+  "optionalDependencies": {
+    "ora": "^7.0.1"
+  },
+  "peerDependencies": {
+    "@anthropic-ai/claude-code": "*"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/claude-code": {
+      "optional": true
+    }
+  }
+}
