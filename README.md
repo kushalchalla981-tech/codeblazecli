@@ -4,35 +4,67 @@
   <img src="https://img.shields.io/badge/version-0.1.0-yellow" alt="Version">
   <img src="https://img.shields.io/badge/node-18%2B-green" alt="Node Version">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="License">
-</p>
-
-<p align="center">
-  🔥 Free Multi-Provider AI CLI - Use Groq, NVIDIA, Google, and more with Claude Code experience!
+  <img src="https://img.shields.io/github/issues/kushalchalla981-tech/codeblazecli" alt="Issues">
+  <img src="https://img.shields.io/github/forks/kushalchalla981-tech/codeblazecli" alt="Forks">
+  <img src="https://img.shields.io/github/stars/kushalchalla981-tech/codeblazecli" alt="Stars">
 </p>
 
 ---
 
-## What is CodeBlaze?
+<p align="center">
+  <b>CodeBlaze</b> — A free, open-source CLI wrapper that enables multiple free-tier AI providers with your Claude Code installation. Write code, debug, and build with zero API costs.
+</p>
 
-CodeBlaze is a wrapper that enables **free AI providers** with your Claude Code installation. Instead of paying for Anthropic's API, use free tiers from:
+---
 
-- **Groq** (60 RPM) - Fastest free tier
-- **NVIDIA NIM** (40 RPM) - High quality models
-- **OpenRouter** (20 RPM) - Access to 50+ models
-- **Google AI** (15 RPM) - 1M context window
-- **DeepSeek** - Great for reasoning
-- **And more...** (15 providers total)
+## About
+
+CodeBlaze is a lightweight CLI wrapper that transforms your Claude Code installation into a **free multi-provider AI assistant**. By leveraging free-tier API quotas from leading AI providers, CodeBlaze enables developers to use powerful AI coding tools without worrying about API costs.
+
+Built with developers in mind, CodeBlaze provides seamless integration with your existing Claude Code workflow while unlocking access to 15+ free AI providers including Groq, NVIDIA NIM, OpenRouter, Google AI, and DeepSeek.
+
+---
+
+## Why CodeBlaze?
+
+| Problem | Solution |
+|---------|-----------|
+| Anthropic API costs money | Use free-tier providers (Groq, NVIDIA, etc.) |
+| Limited rate limits on single provider | Combine multiple providers with presets |
+| Complex configuration | One-command presets: `codeblaze on premium` |
+| Tool support limitations | Automatic fallback to Anthropic when needed |
+| Locked into one provider | Switch between 15+ providers instantly |
+
+---
+
+## Supported Providers
+
+| Provider | RPM | Best For |
+|----------|-----|----------|
+| **Groq** | 60 | Fastest responses, coding |
+| **NVIDIA NIM** | 40 | High quality, DeepSeek R1 |
+| **OpenRouter** | 20 | 50+ model variety |
+| **Google AI** | 15 | 1M context, Gemini models |
+| **DeepSeek** | 50+ | Reasoning, coding |
+| **Cerebras** | 30 | Fast inference |
+| **Cohere** | 20 | RAG, document Q&A |
+| **Mistral** | 2 | Code generation |
+| **xAI (Grok)** | 30 | Creative tasks |
+| **AI21 Labs** | 200 | High throughput |
+| + more | - | - |
 
 ---
 
 ## Features
 
-- 🚀 **290 RPM** possible with premium preset
-- 💰 **100% Free** - No API costs
-- 🔄 **6 Presets** - Easy configuration
-- 🛠️ **Tool Support** - Falls back to Anthropic when needed
-- 🎨 **Claude Code Feel** - Same CLI experience
-- 💡 **Thinking Blocks** - Reasoning support
+- 🚀 **Up to 290 RPM** with premium preset combinations
+- 💰 **100% Free** - Zero API costs with free-tier providers
+- 🔄 **15+ AI Providers** - Groq, NVIDIA, Google, DeepSeek, and more
+- 🎯 **6 Smart Presets** - Pre-configured provider combinations for different use cases
+- 🛠️ **Tool Support** - Automatic fallback to Anthropic for complex tool usage
+- 🎨 **Seamless Experience** - Maintains the Claude Code CLI experience
+- 💡 **Reasoning Support** - Compatible with reasoning models (DeepSeek R1, Grok, etc.)
+- 🔒 **Privacy-First** - Your API keys stay local, no telemetry
 
 ---
 
